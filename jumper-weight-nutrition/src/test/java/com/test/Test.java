@@ -10,6 +10,7 @@ import com.jumper.weight.common.util.FunctionUtils;
 public class Test {
 
 	public static void main(String[] args) throws IOException {
+		
 		/*String url = "http://192.168.0.2:8080/hospital/hospital/hospitalBase/queryHospitalHomePage";
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("hospital_id", 42);
@@ -59,5 +60,6 @@ public class Test {
         BigDecimal b = new BigDecimal(58f/800*100);
 		float result = b.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 		System.out.println(result);
+		System.out.println("123");
 	}
 }

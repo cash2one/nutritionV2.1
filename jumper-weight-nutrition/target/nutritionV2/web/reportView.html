@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>查看报告</title>
+		<style>
+		*{box-sizing: border-box;}
+		body {margin: 0;padding: 0;font-size: 15px;font-family: '微软雅黑';color: #333; background:#ebebeb;width: 100%;}
+		table{border-collapse:collapse;border-spacing:0;} 
+		a{text-decoration: none;color: #45b3e6;_cursor:hand ;cursor:pointer;}
+		.report-contain{background: #ebebeb; width:100% ;min-width: 1280px; height: 100%; overflow: hidden;}
+		.report-head{background: #fff;border-bottom:1px solid #ddd;height: 50px; width:100% ;margin-bottom:15px ;position: fixed;top: 0px;}
+		.report-returnbtn{height: 50px;line-height: 50px; margin-left: 70%; }
+		.report-but{cursor:pointer;border: 1px solid #1990ec;color: #1990ec;padding:6px 15px;border-radius: 3px;font-weight: normal;margin-left: 10px;}
+		.report-but:hover{background: #1990ec;color: #fff;}
+		.report-content-all{width: 21cm;word-break: break-all;background: #fff; margin: 10px auto;overflow: hidden;}
+		.report-content{width: 21cm;margin: auto; background: #fff;padding:20px;margin-bottom:15px ;}
+		.report-content p{margin-bottom: 0;font-size: 16px;}
+		p.report-hospital{ height: 50px;line-height: 50px; text-align: center;font-size: 22px;}
+		.report-title {height: 50px;line-height: 50px;border-bottom: 1px solid #ccc;font-weight: bold;}
+		.report-inf{margin: 5px 0;}
+		.report-inf img{width: 790px; text-align:center ; margin:auto ;}
+		table.threeinf{width: 755px;}
+		table.threeinf td{width: 33%;height: 35px;line-height: 35px;}
+		table.report-table{ border: 1px solid #ddd; margin-top: 15px;width:755px;}
+		table.report-table th,table.report-table td{height: 35px;line-height: 35px;}
+		table.report-table th{border-bottom: 1px solid #ddd;background:#eee ;width:33.33%;}
+		table.report-table td{border-bottom: 1px dashed #ddd; text-align: center;}
+		.record-doctorname{ height: 80px;line-height: 180px;margin-top: 15px; width: 100%; text-align:right ;}
+		.record-doctorname p{ margin-right: 200px;}
+		.report-foodlist-title{font}
+		table.report-table-diet th{width:33.33%;}
+		table.report-table-sport th{width:25%;}
+		.record-doctorw{
+			height:180px;
+		}
+		</style>
+	</head>
+	<body>
+			<div class="report-head">
+				<div class="report-returnbtn">
+					<a class="report-but" id="report-back-outpatient">返回门诊</a>
+					<a href="javascript:void(0);" class="report-but" id="report-print">打印</a>
+				</div>
+			</div>
+		<div class="report-content-all" style="overflow:hidden;">
+			<div class="report-content">
+				<p class="report-hospital" id="hospitalName">深圳市宝安区妇幼保健院</p>
+				<p class="report-title">基本信息</p>
+				<div class="report-inf">
+					<table class="threeinf">
+						<tr>
+							<td>姓名：<span id="realName">林珊珊</span></td>
+							<td>年龄：<span id="age">22 岁</span></td>
+							<td>门诊日期：<span id="addTime">2017-03-13</span></td>
+						</tr>
+					</table>
+				</div>
+				<p class="report-title">体检信息</p>
+				<div class="report-inf">
+					<table class="threeinf">
+						<tr>
+							<td>孕前体重：<span id="weight"></span> kg</td>
+							<td>身高：<span id="height"></span> cm</td>
+							<td>孕前BMI：<span id="beforeBMI">21.56 </span> kg/m²</td>
+						</tr>
+						<tr>
+							<td>孕期：<span id="pregnantStage">孕早期</span></td>
+							<td>孕周：<span id="pregnantWeek">6周 + 1天</span></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>目前体重：<span id="currentWeight">55 </span> kg</td>
+							<td>当前BMI：<span id="currentBMI">22 </span> kg/m²</td>
+							<td>体脂率：<span id="bodyFatRate">50%</span></td>
+						</tr>
+						<tr>
+							<td>肌肉率：<span id="muscle">/</span></td>
+							<td>水分率：<span id="moistureContent">/</span></td>
+							<td>基础代谢：<span id="basalMetabolism">/</span></td>
+						</tr>
+					</table>
+				</div>
+				<p class="report-title">孕期体重增长目标</p>
+				<div class="report-inf">
+					<table class="threeinf">
+						<tr>
+							<td>推荐孕期体重增长：<span id="suggestWeightAdd">/</span> kg</td>
+							<td>当前体重增长：<span id="currentWeightAdd">/</span> kg</td>
+						</tr>
+					</table>
+				</div>
+				<p class="report-title" id="dietSurvey">膳食调查</p>
+				
+				<p class="report-title" id="sportSurvey">运动调查</p>
+				<div id="sportSurveyArea"></div>
+				
+				<p class="report-title" id="recipesPlan">方案</p>
+				
+				<p class="report-title">饮食建议</p>
+				<p class="record-adv" id="dietAdvice">
+					无
+				</p>
+				<p class="report-title">医生建议</p>
+				<p class="record-adv" id="doctorAdvice">
+					无
+				</p>
+				<div class="record-doctorname">
+					<p class="record-doctorw">医生签字：</p>
+				</div>				
+			</div>
+		</div>
+		<div class="report-content-all" style="min-height: 1122px;">
+			<!--<p class="report-title">食物交换份</p>-->
+				<div class="report-inf">
+					<img src="img/foodchange.jpg" />
+				</div>
+		</div>
+		<div class="report-content-all"style="min-height: 1122px;">
+				<!--<p class="report-title">食物交换份</p>-->
+				<div class="report-inf">
+					<img src="img/foodnat.jpg" />
+				</div>	
+		</div>
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script type="text/javascript" src="js/ajax/reportView.js"></script>
+</html>
+	

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jumper.weight.nutrition.user.mapper.WeightUserOrderMapper">
+	<resultMap id="BaseResultMap" type="com.jumper.weight.nutrition.user.entity.WeightUserOrder">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="height" property="height" jdbcType="INTEGER" />
+		<result column="weight" property="weight" jdbcType="DOUBLE" />
+		<result column="p_week" property="pWeek" jdbcType="INTEGER" />
+		<result column="expected_date" property="expectedDate"
+			jdbcType="DATE" />
+		<result column="current_weight" property="currentWeight"
+			jdbcType="DOUBLE" />
+		<result column="weight_exception_type" property="weightExceptionType" jdbcType="INTEGER" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="current_bmi" property="currentBmi"
+			jdbcType="DOUBLE" />
+		<result column="weight_status" property="weightStatus" jdbcType="INTEGER" />
+		<result column="last_weight_time" property="lastWeightTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, user_id, mobile, real_name, height, weight, p_week, expected_date,
+		current_weight,	weight_exception_type, birthday, current_bmi, weight_status, last_weight_time
+	</sql>
+	<select id="findById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from weight_user_order
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<!-- 查询所有 -->
+	<select id="listAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from weight_user_order
+	</select>
+
+	<!-- 批量更新 -->
+	<update id="updateBatch" parameterType="java.util.List">
+		<foreach collection="list" item="order" separator=";">
+			update weight_user_order
+			<set>
+				<if test="order.userId != null">
+					user_id = #{order.userId,jdbcType=INTEGER},
+				</if>
+				<if test="order.mobile != null">
+					mobile = #{order.mobile,jdbcType=VARCHAR},
+				</if>
+				<if test="order.realName != null">
+					real_name = #{order.realName,jdbcType=VARCHAR},
+				</if>
+				<if test="order.height != null">
+					height = #{order.height,jdbcType=DOUBLE},
+				</if>
+				<if test="order.weight != null">
+					weight = #{order.weight,jdbcType=DOUBLE},
+				</if>
+				<if test="order.pWeek != null">
+					p_week = #{order.pWeek,jdbcType=INTEGER},
+				</if>
+				<if test="order.expectedDate != null">
+					expected_date = #{order.expectedDate,jdbcType=DATE},
+				</if>
+				<if test="order.currentWeight != null">
+					current_weight = #{order.currentWeight,jdbcType=DOUBLE},
+				</if>
+				<if test="order.weightExceptionType != null">
+					weight_exception_type = #{order.weightExceptionType,jdbcType=INTEGER},
+				</if>
+				<if test="order.birthday != null">
+					birthday = #{order.birthday,jdbcType=DATE},
+				</if>
+				<if test="order.currentBmi != null">
+					current_bmi = #{order.currentBmi,jdbcType=DOUBLE},
+				</if>
+				<if test="order.weightStatus != null">
+					weight_status = #{order.weightStatus,jdbcType=INTEGER},
+				</if>
+				<if test="order.lastWeightTime != null">
+					last_weight_time = #{order.lastWeightTime,jdbcType=TIMESTAMP},
+				</if>
+			</set>
+			where id = #{order.id,jdbcType=INTEGER}
+		</foreach>
+	</update>
+	
+	<!-- 批量添加 -->
+	<insert id="insertBatch" parameterType="java.util.List">
+		insert into weight_user_order 
+		(
+		user_id, mobile, real_name, height, weight, p_week, expected_date, current_weight, 
+		weight_exception_type, birthday, current_bmi, weight_status, last_weight_time
+		)
+		values 
+		<foreach collection="list" item="order" separator=",">
+			(
+			#{order.userId,jdbcType=INTEGER}, #{order.mobile,jdbcType=VARCHAR},
+			#{order.realName,jdbcType=VARCHAR}, #{order.height,jdbcType=DOUBLE}, 
+			#{order.weight,jdbcType=DOUBLE}, #{order.pWeek,jdbcType=INTEGER}, 
+			#{order.expectedDate,jdbcType=DATE}, #{order.currentWeight,jdbcType=DOUBLE},
+			#{order.weightExceptionType,jdbcType=INTEGER}, #{order.birthday,jdbcType=DATE},
+			#{order.currentBmi,jdbcType=DOUBLE}, #{order.weightStatus,jdbcType=INTEGER},
+			#{order.lastWeightTime,jdbcType=TIMESTAMP}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

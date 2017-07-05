@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+	<head>
+        <meta charset="utf-8" />
+        <!--触发标准模式，这个是最有效的方法。-->
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta name=”renderer” content=”webkit|ie-comp|ie-stand” />
+        <title>门诊</title>
+        <link rel="stylesheet" href="css/layui.css" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/layR.css" />
+        <!--[if lte IE 6]>
+        <style>
+            .cen-table tr td{height:30px;}
+
+            .con-right-ul{
+                height:60px;
+                line-height:38px;
+            }
+            .container-right{
+                background:#dbe7ef;
+            }
+        </style>
+        <![endif]-->
+        <style>
+        	
+            .con-right-ul{
+                height:70px;
+                line-height:30px;
+            }
+            .record li{
+                display: inline-block;
+                line-height: inherit;
+            }
+            .layui-table .checkIn{
+                width: 12px;
+                height: 12px;
+                cursor: pointer;
+                margin-right: 4px;
+                vertical-align: middle;
+                margin-top:4px;
+                float:left!important;
+            }
+            .layui-table .realName{
+            	float:left; 
+            }
+            .delTr{
+                cursor: pointer;
+                font-size: 20px;
+                color: #1990ec;
+            }
+            .delTr:active{
+                color: #386ca1;
+            }
+            .endText2{
+                margin-left: 20px;
+            }
+            .endText2 input,.endText2 .selectAll{
+                height: 16px;
+                width: 16px;
+                padding: 3px 10px;
+                background: none;
+                color: #1990ec;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            .bor2{
+				border: 1px solid #ddd!important;
+				height: 30px;
+				margin-right: -6px;
+			}
+            .endText2 input:hover{
+                background: #f5f7fa;
+            }
+            .endText2 input:active{
+                background: #f0f6fc;
+            }
+            .searchIcon{
+            	margin-left:5px;
+            	+margin-top: 0;
+            	+height:33px;
+            }
+            #pageList .noResultTd{
+            	text-align: center;
+            }
+            #pageList .realName {
+            	width: 100px;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    display: block;
+            }
+            .container-right{
+            	overflow: hidden;
+            }
+            .container{
+            	position: static;
+            	
+            }
+        </style>
+	</head>
+	<body>
+		
+		<div class="container" style="clear:both;height: 900px;_margin-top: 120px;">
+           
+			<div class="container-right">
+                <div  class="con-right-top">
+					<span class="active" id="outpatient">门诊</span>
+					<span id="userManage">孕妇档案</span>
+					<span id="standardRecipes">营养方案</span>
+					<span id="statistics">统计</span>
+					<span id="settings">设置</span>
+                </div>
+                <div class="record con-right-cen con-right-ul">
+                    <div class="fl" style="margin-left: 20px;margin-top: 18px;+margin-top: 20px;display: inline;" >
+                        <input class="bInput bor2" type="text" name="query" style="width: 180px;" placeholder="输入姓名或手机进行搜索"><button class="searchIcon layui-btn enterBtnEvent" id="search-btn"><i class="layui-icon">&#xe615;</i></button>
+                    </div>
+                    <input type="button" class="layui-btn layui-btn-normal fr" id="bookbuild" style="background: #2e8fdd;margin-top: 16px;margin-right: 20px;" value="新建档案">
+                </div>
+                <div class="record con-right-cen">
+                    <div class="tableBox backW">
+                        <div class="" style="height: 700px;overflow-y:auto;width: auto;padding: 20px;">
+                            <table class="layui-table menZhen table-outborder" style="width: 100%;margin-top: 0;">
+                                <thead>
+                                    <tr>
+                                        <th>姓名</th>
+                                        <th>状态</th>
+                                        <th>就诊卡号</th>
+                                        <th>门诊日期</th>
+                                        <th>孕周</th>
+                                        <th>预产期</th>
+                                        <th>体重增速</th>
+                                        <th>身高</th>
+                                        <th>孕前体重</th>
+                                        <th>目前体重</th>
+                                        <th>年龄</th>
+                                        <th>手机</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <!-- 分页数据 -->
+                                <tbody id="pageList">
+                                	
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="endText1 fl">
+                            <div class="endText2">
+                                <label for="selectAll">
+                                    <input type="checkbox" id="selectAll"/>
+                                    <span class="selectAll">全选</span>
+                                </label>
+                                <button type="button" title="删除"  class="delCheck delOutpBatch"><i class="layui-icon"></i></button>
+                            </div>
+                        </div>
+                        
+                        <!-- 分页信息 -->
+                        <div id="page" style="float: right;"></div>
+                        
+                    </div>
+                </div>
+
+			</div>
+		</div>
+	</body>
+	<script src="../sfile/js/json2.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js" ></script>
+	<script type="text/javascript" src="js/layer/layer.js"></script>
+	<script type="text/javascript" src="js/layui/layui.js"></script>
+	<!-- <script type="text/javascript" src="js/fn.js"></script> -->
+	<!-- ie不支持 -->
+	<!-- <link rel="import" href="common/foot.html"> -->
+	<script src="../sfile/js/jquery.cookie.js"></script>
+	<script src="../sfile/js/common.js"></script>
+	<script src="../sfile/js/main.js"></script>
+	<script type="text/javascript" src="js/ajax/outpatient.js"></script>
+	<script>
+		$(function() {
+			//table input 全选/不全选
+			$("#selectAll").click(function() {
+				if ($(this).is(':checked')) {
+					$('tbody').find('input').prop('checked', true).parents("tr").css("color", "#ff334b");
+				} else {
+					$('tbody').find('input').prop('checked', false).parents("tr").css("color", "#000");
+				}
+			});
+			//checkbox冒泡事件阻止
+			$(document).on("click", "input[type='checkbox']", function(e) {
+				e.stopPropagation();
+			});
+			$(document).on("click", ".menZhen input[type='checkbox']", function(e) {
+				if ($(this).is(":checked")) {
+					$(this).parents("tr").css("color", "#ff334b");
+				} else {
+					$(this).parents("tr").css("color", "#000");
+				}
+			});
+		});
+	</script>
+</html>
+

@@ -59,5 +59,6 @@ public class Test {
         BigDecimal b = new BigDecimal(58f/800*100);
 		float result = b.setScale(1, BigDecimal.ROUND_HALF_UP).floatValue();
 		System.out.println(result);
+		
 	}
 }
